@@ -8,10 +8,13 @@ http.createServer(function (req, response) {
 
     let parse = url.parse(req.url, true);
     let path = parse.path;
+
+    app.use(express.static(__dirname + '/'));
+
     console.log(path);
     // console.log(parse);
 
-    if (path == '/') {
+    // if (path == '/') {
         response.writeHead('200', { 'Content-Type': 'text/html' });
         fs.createReadStream(__dirname + "/index.php").pipe(response);
 
@@ -19,12 +22,17 @@ http.createServer(function (req, response) {
         //     response.writeHead('200', { 'Content-Type': 'text/html' });
         //     response.end(data);
         // })
-    } else { //ngược lại nếu truyền tham số lên url thì sẽ load trang tương ứng
-        response.writeHead('200', { 'Content-Type': 'text/html' });
-        var load = path + '.html';
-        fs.createReadStream(__dirname + load).pipe(response);
+    // } 
+    // else { //ngược lại nếu truyền tham số lên url thì sẽ load trang tương ứng
+    //     try {
+    //         response.writeHead('200', { 'Content-Type': 'text/html' });
+    //         var load = path + '.html';
+    //         fs.createReadStream(__dirname + load).pipe(response);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
 
-    }
+    // }
 
     // let data = fs.readFileSync(__dirname + "/index.html", "utf-8");
     // response.end(data);
